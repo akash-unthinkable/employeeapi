@@ -5,6 +5,7 @@ import com.employee.project.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +52,7 @@ public class EmployeeControllar {
         return ResponseEntity.of(book);
     }
     // add new employee
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/employee")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         Employee b= null;
@@ -63,6 +65,7 @@ public class EmployeeControllar {
         }
     }
     // delete employee
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMIN')")
     @DeleteMapping("/employee/{empId}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable("empId") int empId){
         try {
